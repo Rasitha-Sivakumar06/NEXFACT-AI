@@ -73,6 +73,45 @@ const orders = [
   },
 ];
 
+const totalPlannedUnits = orders.reduce(
+  (sum, order) => sum + order.quantity,
+  0
+);
+const totalEnergyDemand = orders.reduce(
+  (sum, order) => sum + Number(order.energy),
+  0
+);
+const averageEnergyPerUnit = totalEnergyDemand / totalPlannedUnits;
+const bestEnergyMachine = [...machines].sort(
+  (a, b) => Number(a.energy) - Number(b.energy)
+)[0];
+const productionOptimizationInsights = [
+  {
+    title: "Best energy fit",
+    value: bestEnergyMachine.id,
+    detail: "Lowest energy intensity asset available",
+    tone: "good",
+  },
+  {
+    title: "Energy per unit",
+    value: `${averageEnergyPerUnit.toFixed(4)} kWh`,
+    detail: "Across all scheduled production",
+    tone: "neutral",
+  },
+  {
+    title: "Production output",
+    value: `${totalPlannedUnits.toLocaleString()} units`,
+    detail: "Current factory load target",
+    tone: "good",
+  },
+  {
+    title: "Optimization gain",
+    value: "+18.4%",
+    detail: "Potential reduction in energy intensity",
+    tone: "highlight",
+  },
+];
+
 function App() {
   const [activePage, setActivePage] = useState("Overview");
   const [selectedMachine, setSelectedMachine] = useState("M02");
@@ -1067,6 +1106,14 @@ function EfficiencyRow({ machine, value, width }) {
 }
 
 function ProductionAI() {
+  const recommendedShift = {
+    order: "ORD002",
+    from: "M01",
+    to: bestEnergyMachine.id,
+    gain: "18.4%",
+    reason: "Flexible production batch can move to the most efficient healthy asset.",
+  };
+
   return (
     <div className="page-content">
       <div className="page-intro">
@@ -1081,6 +1128,24 @@ function ProductionAI() {
 
         <div className="optimized-badge">
           AI OPTIMIZED
+        </div>
+      </div>
+
+      <div className="energy-production-overview">
+        <div className="section-kicker">ENERGY + PRODUCTION OPTIMIZATION</div>
+        <h3>Integrated efficiency model</h3>
+
+        <div className="optimization-metric-grid">
+          {productionOptimizationInsights.map((insight) => (
+            <div
+              key={insight.title}
+              className={`optimization-metric tone-${insight.tone}`}
+            >
+              <span>{insight.title}</span>
+              <strong>{insight.value}</strong>
+              <small>{insight.detail}</small>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -1115,9 +1180,7 @@ function ProductionAI() {
         </div>
 
         <div className="glass-panel decision-card">
-          <div className="section-kicker">
-            AI DECISION
-          </div>
+          <div className="section-kicker">AI DECISION</div>
 
           <div className="decision-score">
             <span>AVERAGE SCORE</span>
@@ -1129,6 +1192,16 @@ function ProductionAI() {
             High-risk assets are automatically excluded while
             production capacity and energy intensity are considered.
           </p>
+
+          <div className="recommendation-box">
+            <span className="recommendation-tag">RECOMMENDATION</span>
+            <strong>
+              {recommendedShift.order} move: {recommendedShift.from} → {recommendedShift.to}
+            </strong>
+            <small>
+              {recommendedShift.reason}
+            </small>
+          </div>
 
           <button className="primary-button full">
             VIEW FINAL SCHEDULE →
@@ -1165,6 +1238,33 @@ function ScheduleBar({
 }
 
 function ImpactAnalysis() {
+  const savingsSummary = [
+    {
+      label: "MONTHLY ENERGY SAVINGS",
+      value: "₹245",
+      unit: "/ month",
+      tone: "good",
+    },
+    {
+      label: "ANNUAL SAVINGS",
+      value: "₹2,947",
+      unit: "/ year",
+      tone: "highlight",
+    },
+    {
+      label: "CO₂ REDUCTION",
+      value: "0.025",
+      unit: "tCO₂e",
+      tone: "neutral",
+    },
+    {
+      label: "PAYBACK PERIOD",
+      value: "2.8",
+      unit: "months",
+      tone: "good",
+    },
+  ];
+
   return (
     <div className="page-content">
       <div className="page-intro">
@@ -1204,6 +1304,24 @@ function ImpactAnalysis() {
           unit="kg"
           icon="CO₂"
         />
+      </div>
+
+      <div className="glass-panel savings-panel">
+        <div className="section-kicker">FINANCIAL OPTIMIZATION</div>
+        <h3>Projected savings from AI scheduling</h3>
+
+        <div className="savings-grid">
+          {savingsSummary.map((item) => (
+            <div
+              key={item.label}
+              className={`savings-card tone-${item.tone}`}
+            >
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+              <small>{item.unit}</small>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="glass-panel impact-explanation">
