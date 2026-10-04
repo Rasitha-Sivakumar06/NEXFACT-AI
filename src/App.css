@@ -394,6 +394,20 @@ button {
   box-shadow: 0 0 10px #3bdcff;
 }
 
+.hero-factory-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  margin: 12px 0 10px;
+  border: 1px solid rgba(82, 230, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(11, 22, 27, 0.7);
+  color: #6fe9ff;
+  font-size: 8px;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
 .hero h2 {
   font-family: "Space Grotesk", sans-serif;
   font-size: clamp(44px, 5vw, 72px);
@@ -406,6 +420,11 @@ button {
 .hero h2 span {
   color: #5ae8ff;
   text-shadow: 0 0 30px rgba(48, 224, 255, 0.15);
+}
+
+.hero h2 .ai-brain-highlight {
+  color:#5ae8ff;
+  text-shadow: 0 0 30px rgba(179, 146, 255, 0.28);
 }
 
 .hero p {

@@ -307,18 +307,21 @@ function Overview() {
         <div className="hero-content">
           <div className="eyebrow">
             <span></span>
-            INDUSTRIAL INTELLIGENCE PLATFORM
+            AI FACTORY OPERATIONS PLATFORM
           </div>
 
+          <div className="hero-factory-tag">AI FACTORY</div>
+
           <h2>
-            The AI brain
+            <span className="ai-brain-highlight">The AI brain</span>
             <br />
-            <span>of your factory.</span>
+            <span>of your plant.</span>
           </h2>
 
           <p>
-            Real-time machine intelligence, energy optimization
-            and production decision support — unified by NEXFACT AI.
+            Smart factory intelligence for machine health, energy
+            optimization, production planning and autonomous plant
+            decision support — unified by NEXFACT AI.
           </p>
 
           <div className="hero-actions">
